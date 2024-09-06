@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool isValid(string s)          //it will give true or false
+    {
+        stack <char> stk;           //creating a empty stack name as stk
+        for (char c : s)            // c can take each element of s in stack
+        {
+            if (c == '(' || c == '{' || c == '[') 
+            {
+                stk.push(c);         //different open brackets only push into stack
+            } 
+            else 
+            {
+                if (stk.empty()) return false;  // No corresponding open bracket
+                    char top = stk.top();
+                if ((c == ')' && top == '(') ||
+                (c == '}' && top == '{') ||
+                (c == ']' && top == '['))       //if close bracket comes then it will come in this loop
+                {
+                    stk.pop();  // Pop the matching open bracket from the stack
+                } 
+                else 
+                {
+                    return false;  // Mismatch
+                }
+            }
+        }
+        return stk.empty();
+    }
+};
