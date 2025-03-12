@@ -30,3 +30,7 @@ Example 3:
 Input: nums = [5,20,66,1314]
 Output: 4
 Explanation: There are 4 positive integers and 0 negative integers. The maximum count among them is 4.
+
+
+<h2>Solution : </h2>
+https://leetcode.com/problems/maximum-count-of-positive-integer-and-negative-integer/solutions/6529804/find-maximum-count-of-positives-or-negat-y6q3
