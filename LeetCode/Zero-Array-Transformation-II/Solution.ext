@@ -1,0 +1,48 @@
+class Solution {
+    public int minZeroArray(int[] nums, int[][] queries) {
+        int n = nums.length;  // Get the length of the nums array
+        int left  = 0;        // Left boundary for binary search
+        int right = queries.length;  // Right boundary for binary search
+
+        // Binary search to find the minimum number of operations needed
+        while(left <= right){
+            int mid = (left + right) >> 1;  // Find the middle index (mid = (left + right) / 2)
+            
+            int[] diff = new int[n + 1];  // Difference array for range updates
+
+            // Apply operations for the first `mid` queries
+            for(int i = 0; i < mid; i++){
+                int start = queries[i][0];  // Start index of the operation
+                int end = queries[i][1];    // End index of the operation
+                int decBy = queries[i][2];  // Value to decrease by
+
+                diff[start] += decBy;  // Increment the start index
+                // To cancel out the effect after `end`, decrease at end + 1
+                if(end + 1 < n){
+                    diff[end + 1]  -= decBy;
+                }
+            }
+
+            boolean isPossible = true;  // To check if the current number of operations is valid
+            int sum = 0;  // Prefix sum variable to reconstruct the array from the difference array
+             
+            for(int i = 0; i < n; i++){
+                sum += diff[i];  // Compute the current array value using the difference array
+
+                if(sum < nums[i]){  // If at any index, the value is less than required
+                    isPossible = false;  // This number of operations is not sufficient
+                    break;  // No need to check further
+                }
+            }
+
+            if(isPossible){
+                right = mid - 1;  // Try reducing the number of queries (move left)
+            } else {
+                left = mid + 1;  // Increase the number of queries (move right)
+            }
+        }
+
+        // If `left` is within bounds, return the minimum number of queries needed
+        return (left <= queries.length) ? left : -1;
+    }
+}
