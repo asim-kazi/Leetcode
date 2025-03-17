@@ -28,3 +28,6 @@ Input: nums = [1,2,3,4]
 Output: false
 Explanation: 
 There is no way to divide nums into 4 / 2 = 2 pairs such that the pairs satisfy every condition.
+
+<h1>Solution 😎</h1>
+https://leetcode.com/problems/divide-array-into-equal-pairs/solutions/6548449/divide-array-into-equal-pairs-the-ultima-0nn5
