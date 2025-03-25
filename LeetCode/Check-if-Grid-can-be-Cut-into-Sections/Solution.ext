@@ -1,0 +1,39 @@
+class Solution {
+    public boolean checkValidCuts(int n, int[][] rectangles) {
+        int len = rectangles.length;
+
+        // Sort the rectangles based on the x-axis (start)
+        Arrays.sort(rectangles, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int maxEnd = rectangles[0][2]; // Initialize max end position
+        int count = 0;
+
+        // Iterate through all rectangles to find separate segments
+        for (int i = 1; i < len; i++) { // Fix index range (i < len)
+            if (rectangles[i][0] >= maxEnd) { // If a rectangle starts after maxEnd, it means a new segment is found
+                count++;
+            }
+            maxEnd = Math.max(maxEnd, rectangles[i][2]); // Update maxEnd
+        }
+
+        if (count >= 2) {
+            return true;
+        }
+
+        // Sort the rectangles based on the y-axis (start)
+        Arrays.sort(rectangles, (a, b) -> Integer.compare(a[1], b[1]));
+
+        maxEnd = rectangles[0][3]; // Reset maxEnd for y-axis calculation
+        count = 0; // Reset count
+
+        // Iterate through all rectangles again for y-axis check
+        for (int i = 1; i < len; i++) { // Fix index range (i < len)
+            if (rectangles[i][1] >= maxEnd) { // Check for a separate segment along y-axis
+                count++;
+            }
+            maxEnd = Math.max(maxEnd, rectangles[i][3]); // Update maxEnd for y-axis
+        }
+
+        return count >= 2;
+    }
+}
